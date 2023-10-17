@@ -8,8 +8,7 @@ class MyFrame(ctk.CTkScrollableFrame):
 
 
 class Root(ctk.CTk):
-    def __init__(self):
-        super().__init__()
+    def CreateWindow(self, init):
         
         # WELCOME LABEL ------------------------------------<
         welcome = ctk.CTkLabel(master=self, text="Escolha um ou adicione um novo atalho", 
@@ -26,11 +25,13 @@ class Root(ctk.CTk):
 
 
         # Generate the last button, an "add more" one.
-        add_button = ctk.CTkButton(master=self, text=" + ", width=70, )
+        add_button = ctk.CTkButton(master=self, text=" + ", width=70, 
+                                   command=lambda: init.call_new_save_window())
         add_button.grid(row=99, column=0, 
-                        padx=10, pady=10, sticky="E")
+                        padx=10, pady=10, sticky="E",)
 
-        edit_button = ctk.CTkButton(master=self, text="Editar", width=70,)
+        edit_button = ctk.CTkButton(master=self, text="Editar", width=70,
+                                    command=lambda: init.call_window("restart"))
         edit_button.grid(row=99, column=1, pady=10)
 
         theme_buttom = ctk.CTkButton(master=self, text="Tema", width=70,)
@@ -38,7 +39,3 @@ class Root(ctk.CTk):
                           padx=10, pady=10, sticky="W")
 
         # >---------------------------------------------------------------- END
-
-
-root = Root()
-root.mainloop()
