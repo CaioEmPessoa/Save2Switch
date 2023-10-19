@@ -1,8 +1,4 @@
-import customtkinter as ctk
-from PIL import Image
-import os
-
-from main_view import Root
+import main_view
 from new_save import new_save
 from new_save import new_save_view
 
@@ -10,17 +6,12 @@ class CopySave():
     def __init__(self):
         super().__init__()
 
+        self.main_view = main_view.Root()
+        self.main_view.CreateWindow(self)
+        self.main_view.mainloop()
+
     def copy_save(switch_location, pc_location):
         print("test")
-
-    def clear_data(self, init):
-        for item in os.listdir("img"):
-            if item != "unknown.png":
-                os.remove("img/" + item)
-        os.remove("apps_data.json")
-                
-        init.call_window("close")
-        init.call_window("restart")
 
     def edit_saves(self, init):
         if init.changing == 0:
@@ -40,16 +31,15 @@ class CopySave():
     def call_new_save_window(self):
         self.add_save = new_save.NewSave()
         self.add_save.create_newsave_window(self, new_save_view)
-        self.add_save.grab_set()
 
     def call_window(self, window):
         match window:
             case "restart":
-                # not working dk why
+                self.main_view.destroy()
                 copysave = CopySave()
 
             case "close":
-                main_view.destroy()
+                self.main_view.destroy()
 
 '''
     >>> ALL OF THIS WILL BE CHANGED
@@ -75,9 +65,6 @@ class CopySave():
                 init.column = 0
                 init.row += 3
 '''
+
 if __name__ == "__main__":
     copysave = CopySave()
-
-    main_view = Root()
-    main_view.CreateWindow(copysave)
-    main_view.mainloop()
