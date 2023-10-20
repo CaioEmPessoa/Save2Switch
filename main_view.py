@@ -5,10 +5,15 @@ import os
 class Frame(ctk.CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
+        self.grid_rowconfigure((0, 1, 2, 3), weight=1)
+        self.grid_columnconfigure((0, 1, 2, 3), weight=1)
 
 class GamesFrame(ctk.CTkScrollableFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
+
+        self.grid_rowconfigure((0, 1, 2, 3, 4), weight=1)
+        self.grid_columnconfigure((0, 1, 2, 3), weight=1)
 
         for s in range(0, 20, 4):
             my_frame = Frame(master=self, border_width=3, border_color="gray", width=550)
@@ -40,14 +45,17 @@ class GamesFrame(ctk.CTkScrollableFrame):
 
 class Root(ctk.CTk):
     def CreateWindow(self, init):
+
+        # WINDOW CONFIG <----------------------------<
+        self.title('Save2Switch')
+        self.minsize(430, 300)
+        self.grid_rowconfigure((0, 1, 2), weight=1)
+        self.grid_columnconfigure((0, 1, 2), weight=1)
+        #  >-------------------------------------> END
         
-        # WELCOME LABEL ------------------------------------<
         welcome = ctk.CTkLabel(master=self, text="Escolha um ou adicione um novo save de jogo", 
                                font=('Segoe UI', 20), text_color="#807e7e", width=500, pady=15)
         welcome.grid(row=0, column=0, columnspan=3)
-        # -----------------------------------------------> END
-
-        # Calls the app buttons to generate them. ------------------------------<
 
         self.games_frame = GamesFrame(master=self, fg_color="transparent",
                                 width=550, height=600, corner_radius=0)
@@ -55,7 +63,7 @@ class Root(ctk.CTk):
                            columnspan=3, sticky="nsew")
 
 
-        # Generate the last button, an "add more" one.
+        # BUTTONS <------------------------------------------------------------<
         add_button = ctk.CTkButton(master=self, text=" + ", width=70, 
                                    command=lambda: init.call_new_save_window())
         add_button.grid(row=99, column=0, 
@@ -67,7 +75,7 @@ class Root(ctk.CTk):
 
         theme_buttom = ctk.CTkButton(master=self, text="Theme", width=70, command=self.switch_theme)
         theme_buttom.grid(row=99, column=2, padx=10, pady=10, sticky="W")
-        # >---------------------------------------------------------------- END
+        # >----------------------------------------------------------------> END
 
     def switch_theme(self):
         try:
