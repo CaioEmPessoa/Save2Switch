@@ -1,36 +1,38 @@
 import main_view
 from new_save import new_save
 from new_save import new_save_view
+from modify_data import ModifyData
+
+from customtkinter import set_appearance_mode
 
 class CopySave():
     def __init__(self):
         super().__init__()
 
+        self.modify_data = ModifyData(self)
+        self.data_read = self.modify_data.read_data()
+        print(self.data_read)
+        self.switch_theme()
+
         self.main_view = main_view.Root()
         self.main_view.CreateWindow(self)
         self.main_view.mainloop()
 
-    def copy_save(switch_location, pc_location):
-        print("test")
 
-    def edit_saves(self, init):
-        if init.changing == 0:
-            init.changing = 1
-            for button in init.created_buttons:
-                button.configure(border_color="red", 
-                                 command=lambda app=init.names_list[init.created_buttons.index(button)]: 
-                                 init.call_edit_window(app))
+    def switch_theme(self):
+        self.theme = self.data_read["theme"]
 
-        else:
-            init.changing = 0
-            for button in init.created_buttons:
-                button.configure(border_color="#1f6aa5", 
-                                 command=lambda app=init.path_list[init.created_buttons.index(button)]: 
-                                 self.open_app(init, app))
+        # If the theme is dark it switches it to light and vice-versa
+        if self.theme == "Light":
+            theme_data = {"theme": "Light"}
+            self.theme = "Dark"
 
-    def call_new_save_window(self):
-        self.add_save = new_save.NewSave()
-        self.add_save.create_newsave_window(self, new_save_view)
+        elif self.theme == "Dark":
+            theme_data = {"theme": "Dark"}
+            self.theme = "Light"
+
+        self.modify_data.write_data(theme_data)
+        set_appearance_mode(self.theme)
 
     def call_window(self, window):
         match window:
@@ -40,6 +42,13 @@ class CopySave():
 
             case "close":
                 self.main_view.destroy()
+            
+            case "new_save":
+                self.add_save = new_save.NewSave()
+                self.add_save.create_newsave_window(self, new_save_view)
+
+    def copy_save(switch_location, pc_location):
+        print("test")
 
 '''
     >>> ALL OF THIS WILL BE CHANGED
@@ -64,6 +73,21 @@ class CopySave():
             if init.column == 3:
                 init.column = 0
                 init.row += 3
+
+    def edit_saves(self, init):
+        if init.changing == 0:
+            init.changing = 1
+            for button in init.created_buttons:
+                button.configure(border_color="red", 
+                                 command=lambda app=init.names_list[init.created_buttons.index(button)]: 
+                                 init.call_edit_window(app))
+
+        else:
+            init.changing = 0
+            for button in init.created_buttons:
+                button.configure(border_color="#1f6aa5", 
+                                 command=lambda app=init.path_list[init.created_buttons.index(button)]: 
+                                 self.open_app(init, app))
 '''
 
 if __name__ == "__main__":

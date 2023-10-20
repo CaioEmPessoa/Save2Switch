@@ -13,7 +13,7 @@ class GamesFrame(ctk.CTkScrollableFrame):
         super().__init__(master, **kwargs)
 
         self.grid_rowconfigure((0, 1, 2, 3, 4), weight=1)
-        self.grid_columnconfigure((0, 1, 2, 3), weight=1)
+        self.grid_columnconfigure((0, 1), weight=1)
 
         for s in range(0, 20, 4):
             my_frame = Frame(master=self, border_width=3, border_color="gray", width=550)
@@ -44,7 +44,7 @@ class GamesFrame(ctk.CTkScrollableFrame):
             my_frame.grid(row=s, column=0, columnspan=2, rowspan=3, pady=20)
 
 class Root(ctk.CTk):
-    def CreateWindow(self, init):
+    def CreateWindow(self, main):
 
         # WINDOW CONFIG <----------------------------<
         self.title('Save2Switch')
@@ -65,34 +65,14 @@ class Root(ctk.CTk):
 
         # BUTTONS <------------------------------------------------------------<
         add_button = ctk.CTkButton(master=self, text=" + ", width=70, 
-                                   command=lambda: init.call_new_save_window())
+                                   command=lambda: main.call_window("new_save"))
         add_button.grid(row=99, column=0, 
                         padx=10, pady=10, sticky="E",)
 
         edit_button = ctk.CTkButton(master=self, text="Edit/Reset view for debug", width=70,
-                                    command=lambda: init.call_window("restart"))
+                                    command=lambda: main.call_window("restart"))
         edit_button.grid(row=99, column=1, pady=10)
 
-        theme_buttom = ctk.CTkButton(master=self, text="Theme", width=70, command=self.switch_theme)
+        theme_buttom = ctk.CTkButton(master=self, text="Theme", width=70, command=main.switch_theme)
         theme_buttom.grid(row=99, column=2, padx=10, pady=10, sticky="W")
         # >----------------------------------------------------------------> END
-
-    def switch_theme(self):
-        try:
-            print(self.tema)
-        except:
-            self.tema = "Dark"
-        
-        # If the theme is dark it switches it to light and vice-versa
-        if self.tema == "Dark":
-            theme_data = {"tema": "Dark"}
-            #self.write_data(theme_data)
-            self.tema = "Light"
-
-        elif self.tema == "Light":
-            theme_data = {"tema": "Light"}
-            #self.write_data(theme_data)
-
-            self.tema = "Dark"
-
-        ctk.set_appearance_mode(self.tema)

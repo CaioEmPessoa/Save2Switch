@@ -10,7 +10,6 @@ class NewSave():
         self.new_view.grab_set()
 
     def send(self):
-
         self.name = self.new_view.name_entry.get()
         self.pc_path = self.new_view.pc_path_entry.get()
         self.switch_path = self.new_view.switch_path_entry.get()
