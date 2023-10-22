@@ -40,7 +40,7 @@ class ModifyData():
         return data_read
 
     def write_data(self, data):
-        self.data.update(data)
+        self.main.data.update(data)
         with open("saves_data.json", "w") as write_file:
             json.dump(self.data, write_file, indent=4)
 

@@ -10,8 +10,8 @@ class CopySave():
         super().__init__()
 
         self.modify_data = ModifyData(self)
-        self.data_read = self.modify_data.read_data()
-        print(self.data_read)
+        self.data = self.modify_data.read_data()
+        self.theme = self.data["theme"]
         self.switch_theme()
 
         self.main_view = main_view.Root()
@@ -20,8 +20,6 @@ class CopySave():
 
 
     def switch_theme(self):
-        self.theme = self.data_read["theme"]
-
         # If the theme is dark it switches it to light and vice-versa
         if self.theme == "Light":
             theme_data = {"theme": "Light"}
