@@ -1,3 +1,4 @@
+from pydantic.utils import deep_update
 import json
 import os
 
@@ -5,44 +6,45 @@ class ModifyData():
     def __init__(self, main):
         super().__init__()
         self.main = main
+        self.data_pure = {}
         self.data = {}
 
     def read_data(self):
         if not os.path.exists("saves_data.json"):
-            theme_data = {"theme": "Dark"}
-            self.write_data(theme_data)
-
-            return self.read_data()
+            default_data = {"theme": "Dark"}
+            self.write_data(default_data)
+            self.data = default_data
 
         with open("saves_data.json", "r") as read_file:
-            self.data = json.load(read_file)
-            self.theme = self.data["theme"]
+            self.data_pure = json.load(read_file)
+            self.theme = self.data_pure["theme"]
         
         try:
-            self.names_list = [self.data[key]['name'] for key in self.data]
-            self.icon_paths = [self.data[key]['icon_path'] for key in self.data]
-            self.pc_paths = [self.data[key]['pc_path'] for key in self.data]
-            self.switch_paths = [self.data[key]['switch_path'] for key in self.data]
+            self.saves_path = self.data_pure["saves"]
         except:
-            return self.data
+            print("NADA LOL")
+            return
 
-        self.list_number = len(self.names_list)
+        self.names_list = [self.saves_path[key]['name'] for key in self.saves_path]
+        self.icon_paths = [self.saves_path[key]['icon_path'] for key in self.saves_path]
+        self.pc_paths = [self.saves_path[key]['pc_path'] for key in self.saves_path]
+        self.switch_paths = [self.saves_path[key]['switch_path'] for key in self.saves_path]
 
-        data_read = {
+        self.main.list_number = len(self.names_list)
+
+        self.data = {
             "names":self.names_list,
-            "icons":self.icons_paths,
+            "icons":self.icon_paths,
             "pc_paths":self.pc_paths,
             "switch_paths":self.switch_paths,
-            "list_number":self.list_number,
             "theme": self.theme
         }
-        
-        return data_read
 
     def write_data(self, data):
-        self.main.data.update(data)
+        self.data_pure = deep_update(self.data_pure, data)
         with open("saves_data.json", "w") as write_file:
-            json.dump(self.data, write_file, indent=4)
+            json.dump(self.data_pure, write_file, indent=4)
+        
 
     def clear_data(self, init):
         for item in os.listdir("img"):
