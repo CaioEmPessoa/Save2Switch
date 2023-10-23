@@ -15,33 +15,48 @@ class GamesFrame(ctk.CTkScrollableFrame):
         self.grid_rowconfigure((0, 1, 2, 3, 4), weight=1)
         self.grid_columnconfigure((0, 1), weight=1)
 
-        for s in range(0, 20, 4):
+    def create_save_frames(self, main):
+        data = main.modify_data.data
+        
+        pos = 0
+        for save_numb in range(0, main.list_number):
+            switch_path = data["switch_paths"][save_numb]
+            pc_path = data["pc_paths"][save_numb]
+
             my_frame = Frame(master=self, border_width=3, border_color="gray", width=550)
             
             border_label = ctk.CTkLabel(master=my_frame, text="")
             border_label.grid(row=0, column=0)
 
-            game_name_label = ctk.CTkLabel(master=my_frame, font=('', 30), text="Disco Elysium", 
+            game_name_label = ctk.CTkLabel(master=my_frame, font=('', 30), text=data["names"][save_numb], 
                                         justify="center", width=500)
-            game_name_label.grid(row=s+1, column=0, columnspan=3, padx=24)
+            game_name_label.grid(row=pos+1, column=0, columnspan=3, padx=24)
 
             question_where_label = ctk.CTkLabel(master=my_frame, font=('', 20), 
                                 text="Copy save to?", justify="center", text_color="grey")
-            question_where_label.grid(row=s+2, column=1)
+            question_where_label.grid(row=pos+2, column=1)
 
-            my_image = ctk.CTkImage(light_image=Image.open("img/disco.jpg"), size=(130, 130))
+            '''
+            my_image = ctk.CTkImage(light_image=Image.open(data["icons"][save_numb]), size=(130, 130))
             img_label = ctk.CTkLabel(master=my_frame, image=my_image, text="")
-            img_label.grid(row=s+3, column=1, pady=20)
+            img_label.grid(row=pos+3, column=1, pady=20)
+            '''
 
-            switch_button = ctk.CTkButton(master=my_frame, text="switch", width=120, height=50, font=('', 25),
-                                        fg_color=("#1f6aa5", "#2a2b2a"), border_color="#1f6aa5", border_width=2, corner_radius=15)
-            switch_button.grid(row=s+3, column=0, pady=15)
+            switch_button = ctk.CTkButton(master=my_frame, text="switch", width=120, height=50,
+                                          command=lambda src=pc_path, dst=switch_path: main.copy_save(src, dst),
+                                          font=('', 25), fg_color=("#1f6aa5", "#2a2b2a"), 
+                                          border_color="#1f6aa5", border_width=2, corner_radius=15)
+            switch_button.grid(row=pos+3, column=0, pady=15)
 
-            pc_button = ctk.CTkButton(master=my_frame, text="pc", width=120, height=50, font=('', 25),
-                                    fg_color=("#1f6aa5", "#2a2b2a"), border_color="#1f6aa5", border_width=2, corner_radius=15)
-            pc_button.grid(row=s+3, column=2, pady=15)
+            pc_button = ctk.CTkButton(master=my_frame, text="pc", width=120, height=50, 
+                                      command=lambda src=switch_path, dst=pc_path: main.copy_save(src, dst),
+                                      font=('', 25), fg_color=("#1f6aa5", "#2a2b2a"), 
+                                      border_color="#1f6aa5", border_width=2, corner_radius=15)
+            pc_button.grid(row=pos+3, column=2, pady=15)
 
-            my_frame.grid(row=s, column=0, columnspan=2, rowspan=3, pady=20)
+            my_frame.grid(row=pos, column=0, columnspan=2, rowspan=3, pady=20)
+            
+            pos += 4
 
 class Root(ctk.CTk):
     def CreateWindow(self, main):
@@ -76,3 +91,5 @@ class Root(ctk.CTk):
         theme_buttom = ctk.CTkButton(master=self, text="Theme", width=70, command=main.switch_theme)
         theme_buttom.grid(row=99, column=2, padx=10, pady=10, sticky="W")
         # >----------------------------------------------------------------> END
+
+        self.games_frame.create_save_frames(main)
