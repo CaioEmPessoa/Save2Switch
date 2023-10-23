@@ -1,4 +1,8 @@
+annotated-types==0.6.0
 customtkinter==5.2.1
 darkdetect==0.8.0
 packaging==23.2
 Pillow==10.1.0
+pydantic==2.4.2
+pydantic_core==2.10.1
+typing_extensions==4.8.0
