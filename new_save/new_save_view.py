@@ -6,7 +6,7 @@ import shutil
 class NewSaveView(ctk.CTkToplevel):
     def __init__(self, new_save):
         super().__init__()
-        self.minsize(430, 200)
+        self.minsize(230, 260)
         self.grid_rowconfigure((list(range(12))), weight=1)
         self.grid_columnconfigure((list(range(3))), weight=1)
 
