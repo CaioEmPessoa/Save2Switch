@@ -36,11 +36,10 @@ class GamesFrame(ctk.CTkScrollableFrame):
                                 text="Copy save to?", justify="center", text_color="grey")
             question_where_label.grid(row=pos+2, column=1)
 
-            '''
-            my_image = ctk.CTkImage(light_image=Image.open(data["icons"][save_numb]), size=(130, 130))
-            img_label = ctk.CTkLabel(master=my_frame, image=my_image, text="")
-            img_label.grid(row=pos+3, column=1, pady=20)
-            '''
+            if data["icons"][save_numb] != "":
+                my_image = ctk.CTkImage(light_image=Image.open(data["icons"][save_numb]), size=(130, 130))
+                img_label = ctk.CTkLabel(master=my_frame, image=my_image, text="")
+                img_label.grid(row=pos+3, column=1, pady=20)
 
             switch_button = ctk.CTkButton(master=my_frame, text="switch", width=120, height=50,
                                           command=lambda src=pc_path, dst=switch_path: main.copy_save(src, dst),
@@ -68,7 +67,7 @@ class Root(ctk.CTk):
         self.grid_columnconfigure((0, 1, 2), weight=1)
         #  >-------------------------------------> END
         
-        welcome = ctk.CTkLabel(master=self, text="Escolha um ou adicione um novo save de jogo", 
+        welcome = ctk.CTkLabel(master=self, text="Choose or add a new save game", 
                                font=('Segoe UI', 20), text_color="#807e7e", width=500, pady=15)
         welcome.grid(row=0, column=0, columnspan=3)
 
@@ -84,7 +83,7 @@ class Root(ctk.CTk):
         add_button.grid(row=99, column=0, 
                         padx=10, pady=10, sticky="E",)
 
-        edit_button = ctk.CTkButton(master=self, text="Edit/Reset view for debug", width=70,
+        edit_button = ctk.CTkButton(master=self, text="Edit", width=70,
                                     command=lambda: main.call_window("restart"))
         edit_button.grid(row=99, column=1, pady=10)
 
