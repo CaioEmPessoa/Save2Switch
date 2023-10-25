@@ -4,6 +4,8 @@ from new_save import new_save_view
 from modify_data import ModifyData
 
 from customtkinter import set_appearance_mode
+import shutil
+import os
 
 class CopySave():
     def __init__(self):
@@ -50,6 +52,11 @@ class CopySave():
             case "new_save":
                 self.add_save = new_save.NewSave()
                 self.add_save.create_newsave_window(self, new_save_view)
+
+    def copy_save(self, src, dst):
+        dst = os.path.dirname(dst)
+        shutil.copy(src, dst)
+
 
 if __name__ == "__main__":
     copysave = CopySave()
