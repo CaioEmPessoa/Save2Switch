@@ -1,7 +1,10 @@
-import main_view
-from new_save import new_save
-from new_save import new_save_view
-from modify_data import ModifyData
+from views import main_view
+from src.modify_data import ModifyData
+
+from src import new_save
+from views import new_save_view
+from src import config
+from views import config_view
 
 from customtkinter import set_appearance_mode
 
@@ -50,6 +53,10 @@ class CopySave():
             case "new_save":
                 self.add_save = new_save.NewSave()
                 self.add_save.create_newsave_window(self, new_save_view)
+
+            case "config":
+                self.configs = config.Config()
+                self.configs.create_config_window(self, config_view)
 
 
 if __name__ == "__main__":

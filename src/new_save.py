@@ -1,5 +1,3 @@
-import shutil
-from PIL import Image
 from tkinter import filedialog
 
 class NewSave():

@@ -1,6 +1,5 @@
 import customtkinter as ctk 
 from PIL import Image
-import os
 
 class Frame(ctk.CTkFrame):
     def __init__(self, master, **kwargs):
@@ -69,12 +68,12 @@ class Root(ctk.CTk):
         
         welcome = ctk.CTkLabel(master=self, text="Choose or add a new save game", 
                                font=('Segoe UI', 20), text_color="#807e7e", width=500, pady=15)
-        welcome.grid(row=0, column=0, columnspan=3)
+        welcome.grid(row=0, column=0, columnspan=4)
 
         self.games_frame = GamesFrame(master=self, fg_color="transparent",
                                 width=550, height=600, corner_radius=0)
         self.games_frame.grid(row=1, column=0, padx=10,
-                           columnspan=3, sticky="nsew")
+                           columnspan=4, sticky="nsew")
 
 
         # BUTTONS <------------------------------------------------------------<
@@ -89,6 +88,14 @@ class Root(ctk.CTk):
 
         theme_buttom = ctk.CTkButton(master=self, text="Theme", width=70, command=main.switch_theme)
         theme_buttom.grid(row=99, column=2, padx=10, pady=10, sticky="W")
+        
+        config_icon = ctk.CTkImage(light_image=Image.open("img/config_light.png"), dark_image=Image.open("img/config_dark.png"), size=(30, 30))
+
+        config_button = ctk.CTkButton(master=self, text="", width=30, 
+                                      image=config_icon, fg_color="transparent",
+                                      command=lambda: main.call_window("config"))
+        config_button.grid(row=99, column=3, padx=10, pady=10, sticky="W")
+
         # >----------------------------------------------------------------> END
 
         self.games_frame.create_save_frames(main)
