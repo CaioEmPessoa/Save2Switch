@@ -67,6 +67,18 @@ class Root(ctk.CTk):
         self.minsize(430, 300)
         self.grid_rowconfigure((0, 1, 2), weight=1)
         self.grid_columnconfigure((0, 1, 2), weight=1)
+
+        w = 600 
+        h = 750 
+        
+        ws = self.winfo_screenwidth()
+        hs = self.winfo_screenheight()
+        
+        x = (ws/2) - (w/2)
+        y = (hs/2) - (h/2)
+
+        self.geometry('%dx%d+%d+%d' % (w, h, x, y))
+
         #  >-------------------------------------> END
         
         welcome = ctk.CTkLabel(master=self, text="Choose or add a new save game", 
@@ -84,6 +96,8 @@ class Root(ctk.CTk):
                                    command=lambda: main.call_window("new_save"))
         add_button.grid(row=99, column=0, 
                         padx=10, pady=10, sticky="E",)
+        if main.data["switch_ip"] == "0.0.0.0":
+            add_button.configure(fg_color="red", state="disabled")
 
         edit_button = ctk.CTkButton(master=self, text="Edit", width=70,
                                     command=lambda: main.call_window("restart"))
@@ -98,7 +112,6 @@ class Root(ctk.CTk):
                                       image=config_icon, fg_color="transparent",
                                       command=lambda: main.call_window("config"))
         config_button.grid(row=99, column=3, padx=10, pady=10, sticky="W")
-
         # >----------------------------------------------------------------> END
 
         try:
