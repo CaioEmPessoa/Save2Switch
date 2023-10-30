@@ -12,14 +12,8 @@ class CopySave():
     def __init__(self):
         super().__init__()
 
-        # ⬇ didn't like that list_number ⬇ #
-        self.list_number = 0
-
         self.modify_data = ModifyData(self)
-        self.modify_data.read_data()
-
-        self.theme = self.modify_data.data_pure["theme"]
-        print(self.list_number)
+        self.data = self.modify_data.read_data()
 
         self.switch_theme()
 
@@ -29,6 +23,7 @@ class CopySave():
 
 
     def switch_theme(self):
+        self.theme = self.data["theme"]
         # If the theme is dark it switches it to light and vice-versa
         if self.theme == "Light":
             theme_data = {"theme": "Light"}

@@ -15,19 +15,22 @@ class GamesFrame(ctk.CTkScrollableFrame):
         self.grid_columnconfigure((0, 1), weight=1)
 
     def create_save_frames(self, main):
-        data = main.modify_data.data
+        saves_data = main.modify_data.data["saves"]
         
         pos = 0
-        for save_numb in range(0, main.list_number):
-            switch_path = data["switch_paths"][save_numb]
-            pc_path = data["pc_paths"][save_numb]
+        for save in saves_data:
+
+            game_name = saves_data[save]["name"]
+            switch_path = saves_data[save]["switch_path"]
+            pc_path = saves_data[save]["pc_path"]
+            icon_path = saves_data[save]["icon_path"]
 
             my_frame = Frame(master=self, border_width=3, border_color="gray", width=550)
             
             border_label = ctk.CTkLabel(master=my_frame, text="")
             border_label.grid(row=0, column=0)
 
-            game_name_label = ctk.CTkLabel(master=my_frame, font=('', 30), text=data["names"][save_numb], 
+            game_name_label = ctk.CTkLabel(master=my_frame, font=('', 30), text=game_name, 
                                         justify="center", width=500)
             game_name_label.grid(row=pos+1, column=0, columnspan=3, padx=24)
 
@@ -35,8 +38,8 @@ class GamesFrame(ctk.CTkScrollableFrame):
                                 text="Copy save to?", justify="center", text_color="grey")
             question_where_label.grid(row=pos+2, column=1)
 
-            if data["icons"][save_numb] != "":
-                my_image = ctk.CTkImage(light_image=Image.open(data["icons"][save_numb]), size=(130, 130))
+            if icon_path != "":
+                my_image = ctk.CTkImage(light_image=Image.open(icon_path), size=(130, 130))
                 img_label = ctk.CTkLabel(master=my_frame, image=my_image, text="")
                 img_label.grid(row=pos+3, column=1, pady=20)
 
@@ -98,4 +101,7 @@ class Root(ctk.CTk):
 
         # >----------------------------------------------------------------> END
 
-        self.games_frame.create_save_frames(main)
+        try:
+            self.games_frame.create_save_frames(main)
+        except:
+            print("no saves")
