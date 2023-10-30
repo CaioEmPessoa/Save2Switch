@@ -8,10 +8,10 @@ from views import config_view
 
 from customtkinter import set_appearance_mode
 
-class CopySave():
+class Main():
     def __init__(self):
         super().__init__()
-
+        
         self.modify_data = ModifyData(self)
         self.data = self.modify_data.read_data()
 
@@ -40,7 +40,7 @@ class CopySave():
         match window:
             case "restart":
                 self.main_view.destroy()
-                copysave = CopySave()
+                copysave = Main()
 
             case "close":
                 self.main_view.destroy()
@@ -55,4 +55,4 @@ class CopySave():
 
 
 if __name__ == "__main__":
-    copysave = CopySave()
+    copysave = Main()
