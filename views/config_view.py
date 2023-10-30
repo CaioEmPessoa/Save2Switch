@@ -7,5 +7,11 @@ class NewSaveView(ctk.CTkToplevel):
         self.grid_rowconfigure((list(range(12))), weight=2)
         self.grid_columnconfigure((list(range(3))), weight=2)
 
-        teste = ctk.CTkLabel(master=self, text="TESTE")
-        teste.grid(row=0, column=0)
+        switch_ip_label = ctk.CTkLabel(master=self, text="What is your switch's ip?")
+        switch_ip_label.grid(row=0, column=0)
+
+        switch_ip_entry = ctk.CTkEntry(master=self)
+        switch_ip_entry.grid(row=1, column=0)
+
+        ftp_app = ctk.CTkComboBox(master=self, values=["JKSV", "Edizon"])
+        ftp_app.grid(row=2, column=0)
