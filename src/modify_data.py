@@ -7,11 +7,14 @@ class ModifyData():
         super().__init__()
         self.main = main
         self.data = {}
-        self.data = {}
 
     def read_data(self):
         if not os.path.exists("saves_data.json"):
-            default_data = {"theme": "Dark"}
+            default_data = {"theme": "Dark",
+                            "switch_ip": "0.0.0.0",
+                            "save_app": "JKSV",
+                            "username": "anonymous",
+                            "password": ""}
             self.write_data(default_data)
             self.data = default_data
 
