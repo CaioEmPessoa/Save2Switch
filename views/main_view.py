@@ -70,13 +70,10 @@ class Root(ctk.CTk):
 
         w = 600 
         h = 750 
-        
         ws = self.winfo_screenwidth()
         hs = self.winfo_screenheight()
-        
         x = (ws/2) - (w/2)
         y = (hs/2) - (h/2)
-
         self.geometry('%dx%d+%d+%d' % (w, h, x, y))
 
         #  >-------------------------------------> END
