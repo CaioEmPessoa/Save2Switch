@@ -14,7 +14,7 @@ class NewSave():
         self.icon_path = self.new_view.image_path_entry.get()
 
         if self.pc_path == "" or self.name == "" or self.switch_path == "":
-            self.new_view.wanring.configure(fg_color="#b60000", text="FILL IN ALL THE * ENTRIES")
+            self.new_view.warning.configure(fg_color="#b60000", text="FILL IN ALL THE * ENTRIES")
 
         else:
             current_save_dic = {
