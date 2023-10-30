@@ -15,6 +15,7 @@ class Main():
         self.modify_data = ModifyData(self)
         self.data = self.modify_data.read_data()
 
+        self.theme = self.data["theme"]
         self.switch_theme()
 
         self.main_view = main_view.Root()
@@ -23,7 +24,6 @@ class Main():
 
 
     def switch_theme(self):
-        self.theme = self.data["theme"]
         # If the theme is dark it switches it to light and vice-versa
         if self.theme == "Light":
             theme_data = {"theme": "Light"}
