@@ -1,15 +1,18 @@
+import ftplib
 
-def connect(self, switchip, username, password):
-    HOSTNAME = switchip
-    USERNAME = username
-    PASSWORD = password
+class connectFTP():
+    def __init__(self, main):
+        super().__init__()
 
-    self.switch_connect = ftplib.FTP(HOSTNAME, USERNAME, PASSWORD)
+    def connect(self, switchip, username, password):
+        HOSTNAME = switchip
+        USERNAME = username
+        PASSWORD = password
 
-def copy(self, file_path):
-    file_path = "gfg.txt"
-    
-    # Read file in binary mode
-    with open(file_path, "rb") as file:
-        # Command for Uploading the file "STOR filename"
-        self.switch_connect.storbinary(f"STOR {file_path}", file)
+        self.switch_connect = ftplib.FTP(HOSTNAME, USERNAME, PASSWORD)
+
+    def copy_save(self, src, dst):
+        # Read file in binary mode
+        with open(src, "rb") as file:
+            # Command for Uploading the file "STOR filename"
+            self.switch_connect.storbinary(f"STOR {dst}", file)
