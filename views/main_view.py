@@ -79,9 +79,9 @@ class Root(ctk.CTk):
 
         #  >-------------------------------------> END
         
-        welcome = ctk.CTkLabel(master=self, text="Choose or add a new save game", 
+        self.welcome = ctk.CTkLabel(master=self, text="Choose or add a new save game", 
                                font=('Segoe UI', 20), text_color="#807e7e", width=500, pady=15)
-        welcome.grid(row=0, column=0, columnspan=4)
+        self.welcome.grid(row=0, column=0, columnspan=4)
 
         self.games_frame = GamesFrame(master=self, fg_color="transparent",
                                 width=550, height=600, corner_radius=0)
@@ -112,6 +112,7 @@ class Root(ctk.CTk):
 
         if main.data["switch_ip"] == "0.0.0.0":
             add_button.configure(fg_color="red", state="disabled")
+            self.welcome.configure(text="Please configure your switch IP.")
             #self.tutorial(main)
 
         try:

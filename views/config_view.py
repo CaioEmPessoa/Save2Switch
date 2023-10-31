@@ -25,30 +25,36 @@ class NewSaveView(ctk.CTkToplevel):
         self.switch_ip_entry = ctk.CTkEntry(master=self, width=200, font=('',16))
         self.switch_ip_entry.grid(row=1, column=0)
 
-        self.ftp_app_label = ctk.CTkLabel(master=self, text="What save app do you use on Switch?", font=('',16))
-        self.ftp_app_label.grid(row=2, column=0)
+        self.switch_port_label = ctk.CTkLabel(master=self, text="\nWhat is your switch's port? (5000 for default)", font=('',16))
+        self.switch_port_label.grid(row=2, column=0)
+
+        self.switch_port_entry = ctk.CTkEntry(master=self, width=200, font=('',16))
+        self.switch_port_entry.grid(row=3, column=0)
+
+        self.ftp_app_label = ctk.CTkLabel(master=self, text="\nWhat save app do you use on Switch?", font=('',16))
+        self.ftp_app_label.grid(row=4, column=0)
 
         self.save_app_select = ctk.CTkOptionMenu(master=self, values=["JKSV", "Edizon"], width=200, font=('',16),
                                         fg_color="White", text_color="Black", button_color=("#969da3", "#565a5f"))
-        self.save_app_select.grid(row=3, column=0)
+        self.save_app_select.grid(row=5, column=0)
         
-        self.ftp_username_label = ctk.CTkLabel(master=self, text="Do you have a username for ftp?\n(recomend to leave it empty)", font=('',16))
-        self.ftp_username_label.grid(row=4, column=0)
+        self.ftp_username_label = ctk.CTkLabel(master=self, text="\nOptional: FTP username:", font=('',16))
+        self.ftp_username_label.grid(row=6, column=0)
 
         self.ftp_username_entry = ctk.CTkEntry(master=self, width=200, font=('',16))
-        self.ftp_username_entry.grid(row=5, column=0)
+        self.ftp_username_entry.grid(row=7, column=0)
 
-        self.ftp_password_label = ctk.CTkLabel(master=self, text="Do you have a password for ftp?\n(recomend to leave it empty)", font=('',16))
-        self.ftp_password_label.grid(row=6, column=0)
+        self.ftp_password_label = ctk.CTkLabel(master=self, text="\nOptional: FTP password:", font=('',16))
+        self.ftp_password_label.grid(row=8, column=0)
 
         self.ftp_password_entry = ctk.CTkEntry(master=self, width=200, font=('',16))
-        self.ftp_password_entry.grid(row=7, column=0)
+        self.ftp_password_entry.grid(row=9, column=0)
 
         self.send_button = ctk.CTkButton(master=self, text="Confirm", font=('',16),
                                     command=new_save.get_config_info)
-        self.send_button.grid(row=8, column=0, pady=15)
+        self.send_button.grid(row=10, column=0, pady=15)
 
         self.wanring = ctk.CTkLabel(master=self, text="")
-        self.wanring.grid(row=9, column=0, sticky="EW")
+        self.wanring.grid(row=11, column=0, sticky="EW")
 
         # send btn

@@ -12,6 +12,7 @@ class ModifyData():
         if not os.path.exists("saves_data.json"):
             default_data = {"theme": "Dark",
                             "switch_ip": "0.0.0.0",
+                            "switch_port": "5000",
                             "save_app": "JKSV",
                             "username": "anonymous",
                             "password": ""}

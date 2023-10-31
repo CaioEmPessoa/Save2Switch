@@ -10,10 +10,11 @@ class newSaveConfig(ctk.CTkScrollableFrame):
         self.warning = ctk.CTkLabel(master=self, font=('',16), text="")
         self.warning.grid(row=0, column=0, columnspan=3, sticky="W", pady=10, padx=10)
 
-        self.name_label = ctk.CTkLabel(master=self, justify="left", font=('',16), text="The name of the game for display:")
+        self.name_label = ctk.CTkLabel(master=self, justify="left", font=('',16), text="The game name to display:")
         self.name_label.grid(row=1, column=0, padx=10, columnspan=3, sticky="W")
 
-        self.switch_path_label = ctk.CTkLabel(master=self, font=('',16), text="The name of the game on the Switch foulder:")
+        self.switch_path_label = ctk.CTkLabel(master=self, font=('',16), justify="left",
+                                              text="The name of the game for JKSV,\nor title ID for EdiZon:")
         self.switch_path_label.grid(row=4, column=0, padx=10, columnspan=2, sticky="W")
 
         self.pc_path_label = ctk.CTkLabel(master=self, font=('',16), text="The path to the PC foulder/file:")
