@@ -6,6 +6,7 @@ class Config():
 
     def get_config_info(self):
         self.switch_ip = self.config_view.switch_ip_entry.get()
+        self.switch_port = self.config_view.switch_port_entry.get()
         self.save_app = self.config_view.save_app_select.get()
 
         self.ftp_username = self.config_view.ftp_username_entry.get()
@@ -14,15 +15,19 @@ class Config():
         if self.switch_ip == "":
             self.config_view.wanring.configure(fg_color="#b60000", text="Please put your switch IP.")
             return
+        
         if self.ftp_username == "":
             self.ftp_username = "anonymous"
+        if self.switch_port == "":
+            self.switch_port = "5000"
 
         self.config_data = {
             "switch_ip": self.switch_ip,
+            "switch_port": self.switch_port,
             "save_app": self.save_app,
             "username": self.ftp_username,
             "password": self.ftp_password
         }
 
         self.main.modify_data.write_data(self.config_data)
-        self.config_view.destroy()
+        self.main.call_window("restart")
