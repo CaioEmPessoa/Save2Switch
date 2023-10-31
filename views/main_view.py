@@ -1,4 +1,5 @@
 import customtkinter as ctk 
+from tkinter import messagebox
 from PIL import Image
 
 class Frame(ctk.CTkFrame):
@@ -93,8 +94,6 @@ class Root(ctk.CTk):
                                    command=lambda: main.call_window("new_save"))
         add_button.grid(row=99, column=0, 
                         padx=10, pady=10, sticky="E",)
-        if main.data["switch_ip"] == "0.0.0.0":
-            add_button.configure(fg_color="red", state="disabled")
 
         edit_button = ctk.CTkButton(master=self, text="Edit", width=70,
                                     command=lambda: main.call_window("restart"))
@@ -111,7 +110,28 @@ class Root(ctk.CTk):
         config_button.grid(row=99, column=3, padx=10, pady=10, sticky="W")
         # >----------------------------------------------------------------> END
 
+        if main.data["switch_ip"] == "0.0.0.0":
+            add_button.configure(fg_color="red", state="disabled")
+            #self.tutorial(main)
+
         try:
             self.games_frame.create_save_frames(main)
         except:
             print("no saves")
+
+    def tutorial(self, main):
+        #tutorials like this don't work??
+        tour = messagebox.askyesno(title="Tutorial", message="It seems this is your first time here, do you want a tutorial?")
+        if tour:
+            messagebox.showinfo(title="+ Button", message="The '+' button is where you add new game saves, it is red now because you first need to configure some things.")
+            messagebox.showinfo(title="Edit Button", message="The 'edit' button lets you edit or delete your already made saves, if you changed your save foulder, or want to change the icon of the game, you can make this changes here.")
+            messagebox.showinfo(title="Theme Button", message="The 'theme' button lets you change the theme of the app from light to dark and the other way around.")
+            messagebox.showinfo(title="Config Button", message="The config button should be the first button to press, here is where you config your switch ip, port, username and such... We will open the tab of it now.")
+            main.call_window("config")
+            messagebox.showinfo(title="Configurating...", message="First you can open a server on your switch, there you can check your IP and Port.")
+            messagebox.showinfo(title="Configurating...", message="Then you can put a custom username and password to connect to your switch, but I DO NOT RECOMMEND doing that, it is probably the default one, so change only IF YOU KNOW WHAT YOU ARE DOING.")
+            main.call_window("restart")
+            messagebox.showinfo(title="End", message="Ok, I think that's it for the tutorial! The part of adding a app and actually copying saves is much simpler and you can do it by intuition, but if you have any trouble doing so. But if you have >any< trouble with the app, I recommend reporting it to my github, thanks!")
+            main.call_window("restart")
+        else:
+            return
