@@ -76,6 +76,6 @@ class NewSaveView(ctk.CTkToplevel):
         self.geometry('%dx%d+%d+%d' % (w, h, x, y-35))
 
         self.title("Save2Switch new save.")
-        configs_frame = newSaveConfig(master=self)
-        configs_frame.pack(fill="both", expand=True)
-        configs_frame.create_itens(new_save)
+        self.configs_frame = newSaveConfig(master=self)
+        self.configs_frame.pack(fill="both", expand=True)
+        self.configs_frame.create_itens(new_save)

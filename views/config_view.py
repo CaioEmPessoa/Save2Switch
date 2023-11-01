@@ -19,7 +19,7 @@ class NewSaveView(ctk.CTkToplevel):
         self.grid_rowconfigure((list(range(7))), weight=2)
         self.title("Save2Switch Config")
 
-        self.switch_ip_label = ctk.CTkLabel(master=self, text="What is your switch's ip?", font=('',16))
+        self.switch_ip_label = ctk.CTkLabel(master=self, text="What is your switch's ip? (it may change)", font=('',16))
         self.switch_ip_label.grid(row=0, column=0)
 
         self.switch_ip_entry = ctk.CTkEntry(master=self, width=200, font=('',16))
@@ -57,4 +57,9 @@ class NewSaveView(ctk.CTkToplevel):
         self.wanring = ctk.CTkLabel(master=self, text="")
         self.wanring.grid(row=11, column=0, sticky="EW")
 
-        # send btn
+        # DEFAULT VALUES
+        self.switch_ip_entry.insert(0, new_save.main.data["switch_ip"])
+        self.switch_port_entry.insert(0, new_save.main.data["switch_port"])
+        self.save_app_select.set(new_save.main.data["save_app"])
+        self.ftp_username_entry.insert(0, new_save.main.data["username"])
+        self.ftp_password_entry.insert(0, new_save.main.data["password"])

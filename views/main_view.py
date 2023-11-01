@@ -22,8 +22,6 @@ class GamesFrame(ctk.CTkScrollableFrame):
         for save in saves_data:
 
             game_name = saves_data[save]["name"]
-            switch_path = saves_data[save]["switch_path"]
-            pc_path = saves_data[save]["pc_path"]
             icon_path = saves_data[save]["icon_path"]
 
             my_frame = Frame(master=self, border_width=3, border_color="gray", width=550)
@@ -45,13 +43,13 @@ class GamesFrame(ctk.CTkScrollableFrame):
                 img_label.grid(row=pos+3, column=1, pady=20)
 
             switch_button = ctk.CTkButton(master=my_frame, text="switch", width=120, height=50,
-                                          command=lambda src=pc_path, dst=switch_path: main.copy_save(src, dst),
+                                          command=lambda game=game_name: main.connect_switch.save2switch(game),
                                           font=('', 25), fg_color=("#1f6aa5", "#2a2b2a"), 
                                           border_color="#1f6aa5", border_width=2, corner_radius=15)
             switch_button.grid(row=pos+3, column=0, pady=15)
 
             pc_button = ctk.CTkButton(master=my_frame, text="pc", width=120, height=50, 
-                                      command=lambda src=switch_path, dst=pc_path: main.copy_save(src, dst),
+                                      command=lambda game=game_name: main.connect_switch.save2pc(game),
                                       font=('', 25), fg_color=("#1f6aa5", "#2a2b2a"), 
                                       border_color="#1f6aa5", border_width=2, corner_radius=15)
             pc_button.grid(row=pos+3, column=2, pady=15)
