@@ -8,13 +8,13 @@ class NewSave():
         self.new_view.grab_set()
 
     def send(self):
-        self.name = self.new_view.name_entry.get()
-        self.pc_path = self.new_view.pc_path_entry.get()
-        self.switch_path = self.new_view.switch_path_entry.get()
-        self.icon_path = self.new_view.image_path_entry.get()
+        self.name = self.new_view.configs_frame.name_entry.get()
+        self.pc_path = self.new_view.configs_frame.pc_path_entry.get()
+        self.switch_path = self.new_view.configs_frame.switch_path_entry.get()
+        self.icon_path = self.new_view.configs_frame.image_path_entry.get()
 
         if self.pc_path == "" or self.name == "" or self.switch_path == "":
-            self.new_view.warning.configure(fg_color="#b60000", text="FILL IN ALL THE * ENTRIES")
+            self.new_view.configs_frame.warning.configure(fg_color="#b60000", text="FILL IN ALL THE * ENTRIES")
 
         else:
             current_save_dic = {
@@ -33,7 +33,7 @@ class NewSave():
             self.main.call_window("restart")
 
     def search_windows(self, entry):
-        check = self.new_view.checkbox.get()
+        check = self.new_view.configs_frame.checkbox.get()
 
         if not check:
             self.search_file_window(entry)
