@@ -39,7 +39,7 @@ class GamesFrame(ctk.CTkScrollableFrame):
 
             if icon_path != "":
                 my_image = ctk.CTkImage(light_image=Image.open(icon_path), size=(130, 130))
-                img_label = ctk.CTkLabel(master=my_frame, image=my_image, text="")
+                img_label = ctk.CTkLabel(master=my_frame, image=my_image, text="", corner_radius=100)
                 img_label.grid(row=pos+3, column=1, pady=20)
 
             switch_button = ctk.CTkButton(master=my_frame, text="switch", width=120, height=50,
@@ -64,7 +64,7 @@ class Root(ctk.CTk):
         # WINDOW CONFIG <----------------------------<
         self.title('Save2Switch')
         self.minsize(430, 300)
-        self.grid_rowconfigure((0, 1, 2), weight=1)
+        self.grid_rowconfigure((1, 2), weight=1)
         self.grid_columnconfigure((0, 1, 2), weight=1)
 
         w = 600 
