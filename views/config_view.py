@@ -25,7 +25,7 @@ class NewSaveView(ctk.CTkToplevel):
         self.switch_ip_entry = ctk.CTkEntry(master=self, width=200, font=('',16))
         self.switch_ip_entry.grid(row=1, column=0)
 
-        self.switch_port_label = ctk.CTkLabel(master=self, text="\nWhat is your switch's port? (5000 for default)", font=('',16))
+        self.switch_port_label = ctk.CTkLabel(master=self, text="\nWhat is your switch's port?", font=('',16))
         self.switch_port_label.grid(row=2, column=0)
 
         self.switch_port_entry = ctk.CTkEntry(master=self, width=200, font=('',16))

@@ -1,4 +1,5 @@
 import ftplib
+import datetime
 import os
 
 class connectFTP():
@@ -26,35 +27,41 @@ class connectFTP():
                                                       text_color="Black")
                 
 
-    def save2switch(self, game):
+    def save2switch(self, game_name):
         self.connect()
-        game = self.main.data["saves"][game]
-
+        game = self.main.data["saves"][game_name]
         src = game["pc_path"]
-        file_name = os.path.basename(game["pc_path"])
 
-        if self.main.data["save_app"] == "JKSV":
-            dst = f"/JKSV/{game['switch_path']}/"
-        elif self.main.data["save_app"] == "EdiZon":
-            dst = f"/switch/EdiZon/saves/{game['switch_path']}/Save2Switch Copy/"
+        match self.main.data["save_app"]:
+            case "JKSV":
+                dst = f"/JKSV/{game['switch_path']}/"
+            case "EdiZon":
+                dst = f"/switch/EdiZon/saves/{game['switch_path']}/"
 
-        print(dst)
-        print(src)
+        # change work directory
         self.switch_connect.cwd(dst)
-        self.switch_connect.mkd("Save2Switch Copy")
-        with open(src, "rb") as file:
-            self.switch_connect.storbinary(f"STOR Save2Switch Copy/{file_name}", file)
+        
+        new_dir_name = "Save2Switch Copy - " + datetime.datetime.now().strftime("%d.%m.%Y")
+        print(new_dir_name)
+        try:
+            self.switch_connect.mkd(new_dir_name)
+        except:
+            pass
+
+        if os.path.isfile(src):
+            file_name = os.path.basename(src)
+            with open(src, "rb") as file:
+                self.switch_connect.storbinary(f"STOR {new_dir_name}/{file_name}", file)
+        elif os.path.isdir(src):
+            save_files = os.listdir(src)
+            for file in save_files:
+                file_name = os.path.basename(file)
+                print(file_name)
+                with open(src, "rb") as file:
+                    self.switch_connect.storbinary(f"STOR {new_dir_name}/{file_name}", file)
+
         
         self.switch_connect.quit()
 
     def save2pc(self, game):
-        self.connect()
-        game = self.main.data["saves"][game]
-        src = game["pc_path"]
-        dst = game["switch_path"]
-
-        # Read file in binary mode
-        with open(src, "rb") as file:
-            # Command for Uploading the file "STOR filename"
-            self.switch_connect.storbinary(f"STOR {dst}", file)
-
+        print("work still in progress ;)")
