@@ -59,7 +59,7 @@ class connectFTP():
             for file in save_files:
                 file_name = os.path.basename(file)
                 print(file_name)
-                with open(src, "rb") as file:
+                with open(f"{src}/{file}", "rb") as file:
                     self.switch_connect.storbinary(f"STOR {new_dir_name}/{file_name}", file)
 
         
