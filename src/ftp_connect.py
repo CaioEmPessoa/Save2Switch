@@ -1,4 +1,5 @@
 import ftplib
+import os
 
 class connectFTP():
     def __init__(self, main):
@@ -28,10 +29,9 @@ class connectFTP():
     def save2switch(self, game):
         self.connect()
         game = self.main.data["saves"][game]
-        ip = self.main.data["switch_ip"]
-        port = self.main.data["switch_port"]
 
         src = game["pc_path"]
+        file_name = os.path.basename(game["pc_path"])
 
         if self.main.data["save_app"] == "JKSV":
             dst = f"/JKSV/{game['switch_path']}/"
@@ -41,8 +41,9 @@ class connectFTP():
         print(dst)
         print(src)
         self.switch_connect.cwd(dst)
+        self.switch_connect.mkd("Save2Switch Copy")
         with open(src, "rb") as file:
-            self.switch_connect.storbinary(f"STOR vallsave.txt", file)
+            self.switch_connect.storbinary(f"STOR Save2Switch Copy/{file_name}", file)
         
         self.switch_connect.quit()
 
