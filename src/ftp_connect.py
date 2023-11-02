@@ -1,5 +1,6 @@
 import ftplib
 import datetime
+import shutil
 import os
 
 class connectFTP():
@@ -7,6 +8,7 @@ class connectFTP():
         super().__init__()
 
         self.main = main
+        self.today = datetime.datetime.now().strftime("%d.%m.%Y")
         
     def connect(self):
         if self.main.data["switch_ip"] != "0.0.0.0":
@@ -41,7 +43,7 @@ class connectFTP():
         # change work directory
         self.switch_connect.cwd(dst)
         
-        new_dir_name = "Save2Switch Copy - " + datetime.datetime.now().strftime("%d.%m.%Y")
+        new_dir_name = "Save2Switch Copy - " + self.today
         print(new_dir_name)
         try:
             self.switch_connect.mkd(new_dir_name)
@@ -63,5 +65,20 @@ class connectFTP():
         
         self.switch_connect.quit()
 
-    def save2pc(self, game):
-        print("work still in progress ;)")
+    def save2pc(self, game_name):
+        game = self.main.data["saves"][game_name]
+        src = f"{game['switch_path']}/{game['switch_foulder']}"
+        dst = game["pc_path"]
+
+        # could be more effective,
+        # bring this code to __init_
+        backhup_foulder = f"{dst}/../save2pc save_backup - {self.time}"
+        os.mkdir(backhup_foulder) 
+
+        match self.main.data["save_app"]:
+            case "JKSV":
+                src = f"/JKSV/{game['switch_path']}/"
+            case "EdiZon":
+                src = f"/switch/EdiZon/saves/{game['switch_path']}/"
+
+        self.switch_connect.quit()
