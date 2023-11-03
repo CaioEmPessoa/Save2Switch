@@ -1,4 +1,6 @@
 from tkinter import filedialog
+import shutil
+import os
 
 class NewSave():
     def create_newsave_window(self, main, new_save_view):
@@ -16,23 +18,30 @@ class NewSave():
 
         if self.pc_path == "" or self.name == "" or self.switch_path == "" or self.switch_foulder=="":
             self.new_view.configs_frame.warning.configure(fg_color="#b60000", text="FILL IN ALL THE * ENTRIES")
+            return
+        
+        if os.path.isfile(self.icon_path):
+            working_path = os.getcwd()
+            icon_name = os.path.basename(self.icon_path)
+            
+            shutil.copy(self.icon_path, f"{working_path}/img/{icon_name}")
+            self.icon_path = f"{working_path}/img/{icon_name}"
 
-        else:
-            current_save_dic = {
-                "saves":{
-                    self.name: {
-                        "name": f"{self.name}",
-                        "switch_path": f"{self.switch_path}",
-                        "switch_foulder": f"{self.switch_foulder}",
-                        "pc_path": f"{self.pc_path}",
-                        "icon_path": f"{self.icon_path}"
-                    }
+        current_save_dic = {
+            "saves":{
+                self.name: {
+                    "name": f"{self.name}",
+                    "switch_path": f"{self.switch_path}",
+                    "switch_foulder": f"{self.switch_foulder}",
+                    "pc_path": f"{self.pc_path}",
+                    "icon_path": f"{self.icon_path}"
                 }
             }
-            
-            self.main.modify_data.write_data(current_save_dic)
+        }
+        
+        self.main.modify_data.write_data(current_save_dic)
 
-            self.main.call_window("restart")
+        self.main.call_window("restart")
 
     def search_windows(self, entry):
         check = self.new_view.configs_frame.checkbox.get()

@@ -26,7 +26,7 @@ class newSaveConfig(ctk.CTkScrollableFrame):
         self.switch_foulder_entry = ctk.CTkEntry(master=self, width=200)
         self.switch_foulder_entry.grid(row=6, column=0, pady=10, padx=10, sticky="W")
 
-        self.pc_path_label = ctk.CTkLabel(master=self, font=('',16), text="The path to the PC foulder/file:")
+        self.pc_path_label = ctk.CTkLabel(master=self, font=('',16), text="The path to the PC save:")
         self.pc_path_label.grid(row=7, column=0, padx=10, columnspan=2, sticky="W")
 
         self.pc_path_entry = ctk.CTkEntry(master=self, width=200)
