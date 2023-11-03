@@ -33,7 +33,7 @@ class newSaveConfig(ctk.CTkScrollableFrame):
         self.pc_path_entry.grid(row=8, column=0, pady=10, padx=10, sticky="W")
 
         self.pc_window_button = ctk.CTkButton(master=self, text="Window", width=10, 
-                                    command=lambda: new_save.search_windows(self.pc_path_entry))
+                                    command=lambda: new_save.search_foulder_window(self.pc_path_entry))
         self.pc_window_button.grid(row=8, column=1, sticky="W")
 
         self.image_path_label = ctk.CTkLabel(master=self, font=('',16), text="Optional: Path to the preview image:")
@@ -43,20 +43,14 @@ class newSaveConfig(ctk.CTkScrollableFrame):
         self.image_path_entry.grid(row=10, column=0, pady=10, padx=10, sticky="W")
 
         self.image_window_button = ctk.CTkButton(master=self, text="Window", width=10, 
-                                    command=lambda: new_save.search_windows(self.image_path_entry))
+                                    command=lambda: new_save.search_file_window(self.image_path_entry))
         self.image_window_button.grid(row=10, column=1, sticky="W")
 
-        self.checkbox_label = ctk.CTkLabel(master=self, font=('',16), text="Foulder Mode for Window button:")
-        self.checkbox_label.grid(row=11, column=0, pady=15, padx=10)
-
-        self.checkbox = ctk.CTkCheckBox(master=self, text="")
-        self.checkbox.grid(row=11, column=1, pady=15)
-
         self.send_button = ctk.CTkButton(master=self, command=lambda: new_save.send(), text="Concluir")
-        self.send_button.grid(row=12, pady=15)
+        self.send_button.grid(row=11, pady=15)
 
         self.warning = ctk.CTkLabel(master=self, font=('',16), text="")
-        self.warning.grid(row=13, column=0, columnspan=2, sticky="EW")
+        self.warning.grid(row=12, column=0, columnspan=2, sticky="EW")
 
 class NewSaveView(ctk.CTkToplevel):
     def __init__(self, new_save):

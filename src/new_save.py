@@ -43,14 +43,6 @@ class NewSave():
 
         self.main.call_window("restart")
 
-    def search_windows(self, entry):
-        check = self.new_view.configs_frame.checkbox.get()
-
-        if not check:
-            self.search_file_window(entry)
-        if check:
-            self.search_foulder_window(entry)
-
     def search_foulder_window(self, entry):
         entry.delete(0, "end")
         path = filedialog.askdirectory()

@@ -36,9 +36,9 @@ class connectFTP():
 
         match self.main.data["save_app"]:
             case "JKSV":
-                dst = f"/JKSV/{game['switch_path']}/"
+                dst = f"\\JKSV\\{game['switch_path']}\\"
             case "EdiZon":
-                dst = f"/switch/EdiZon/saves/{game['switch_path']}/"
+                dst = f"\\switch\\EdiZon\\saves\\{game['switch_path']}\\"
 
         # change work directory
         self.switch_connect.cwd(dst)
@@ -53,32 +53,35 @@ class connectFTP():
         if os.path.isfile(src):
             file_name = os.path.basename(src)
             with open(src, "rb") as file:
-                self.switch_connect.storbinary(f"STOR {new_dir_name}/{file_name}", file)
+                self.switch_connect.storbinary(f"STOR {new_dir_name}\\{file_name}", file)
         elif os.path.isdir(src):
             save_files = os.listdir(src)
             for file in save_files:
                 file_name = os.path.basename(file)
                 print(file_name)
-                with open(f"{src}/{file}", "rb") as file:
-                    self.switch_connect.storbinary(f"STOR {new_dir_name}/{file_name}", file)
+                with open(f"{src}\\{file}", "rb") as file:
+                    self.switch_connect.storbinary(f"STOR {new_dir_name}\\{file_name}", file)
 
         
         self.switch_connect.quit()
 
     def save2pc(self, game_name):
         game = self.main.data["saves"][game_name]
-        src = f"{game['switch_path']}/{game['switch_foulder']}"
+        src = f"{game['switch_path']}\\{game['switch_foulder']}"
         dst = game["pc_path"]
+        backhup_foulder = f"{os.getcwd()}\\backups\\{game['name']} backup - {self.today}"
+        
+        try:
+            os.mkdir(backhup_foulder)
+        except FileExistsError:
+            pass
 
-        # could be more effective,
-        # bring this code to __init_
-        backhup_foulder = f"{dst}/../save2pc save_backup - {self.time}"
-        os.mkdir(backhup_foulder) 
+        for file in os.listdir(dst):
+            shutil.copy(f"{dst}\\{file}", backhup_foulder)
 
         match self.main.data["save_app"]:
             case "JKSV":
-                src = f"/JKSV/{game['switch_path']}/"
+                src = f"\\JKSV\\{game['switch_path']}\\"
             case "EdiZon":
-                src = f"/switch/EdiZon/saves/{game['switch_path']}/"
+                src = f"\\switch\\EdiZon\\saves\\{game['switch_path']}\\"
 
-        self.switch_connect.quit()

@@ -68,7 +68,7 @@ class Root(ctk.CTk):
         self.grid_columnconfigure((0, 1, 2), weight=1)
 
         w = 600 
-        h = 750 
+        h = 600 
         ws = self.winfo_screenwidth()
         hs = self.winfo_screenheight()
         x = (ws/2) - (w/2)
@@ -93,7 +93,7 @@ class Root(ctk.CTk):
         add_button.grid(row=99, column=0, 
                         padx=10, pady=10, sticky="E",)
 
-        edit_button = ctk.CTkButton(master=self, text="Edit", width=70,
+        edit_button = ctk.CTkButton(master=self, text="Edit", width=70, state="disabled",
                                     command=lambda: main.call_window("restart"))
         edit_button.grid(row=99, column=1, pady=10)
 
