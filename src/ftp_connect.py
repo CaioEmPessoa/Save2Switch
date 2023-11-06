@@ -37,7 +37,27 @@ class connectFTP():
                                                       text_color="Black")
                 raise
 
-    def copy_tree(self, src):
+    def save2switch(self, game_name):
+        self.connect(game_name)
+        src = self.pc_path
+
+        print('CWD ', self.switch_path)
+        self.switch_connect.cwd(self.switch_path)
+        print('CWD ', "OK!")
+        
+        new_dir_name = "Save2Switch Copy - " + self.today
+
+        try:
+            print('MKD ', new_dir_name)
+            self.switch_connect.mkd(new_dir_name)
+            print('MKD ', "OK!")
+        except ftplib.error_perm:
+            print('MKD ', "OK!")
+            pass
+
+        print('CWD ', new_dir_name)
+        self.switch_connect.cwd(new_dir_name)
+
         for file in os.listdir(src):
             localpath = f"{src}/{file}"
             print(self.switch_connect.nlst())
@@ -60,28 +80,7 @@ class connectFTP():
                 
                 print("CWD", "..")
                 self.switch_connect.cwd("..")
-
-    def save2switch(self, game_name):
-        self.connect(game_name)
-
-        print('CWD ', self.switch_path)
-        self.switch_connect.cwd(self.switch_path)
-        print('CWD ', "OK!")
-        
-        new_dir_name = "Save2Switch Copy - " + self.today
-
-        try:
-            print('MKD ', new_dir_name)
-            self.switch_connect.mkd(new_dir_name)
-            print('MKD ', "OK!")
-        except ftplib.error_perm:
-            print('MKD ', "OK!")
-            pass
-
-        print('CWD ', new_dir_name)
-        self.switch_connect.cwd(new_dir_name)
-
-        self.copy_tree(self.pc_path)
+                
         self.switch_connect.quit()
 
     def save2pc(self, game_name):
