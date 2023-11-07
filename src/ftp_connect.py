@@ -15,7 +15,6 @@ class connectFTP():
         self.pc_path = self.game["pc_path"]
         match self.main.data["save_app"]:
             case "JKSV":
-                "Save2Switch Copy - " + self.today
                 self.switch_path = f"/JKSV/{self.game['switch_path']}/"
             case "EdiZon":
                 self.switch_path = f"/switch/EdiZon/saves/{self.game['switch_path']}/"
@@ -30,7 +29,12 @@ class connectFTP():
                 self.switch_connect = ftplib.FTP()
                 self.switch_connect.connect(HOSTNAME, PORT)
                 self.switch_connect.login(USERNAME, PASSWORD)
+
                 print(self.switch_connect.getwelcome())
+                
+                print('CWD ', self.switch_path)
+                self.switch_connect.cwd(self.switch_path)
+                print('CWD ', "OK!")
 
             except:
                 self.main.main_view.welcome.configure(text="Error connecting to FTP server.\nCheck your FTP info and if the server is opened.", 
@@ -41,9 +45,6 @@ class connectFTP():
         self.connect(game_name)
         src = self.pc_path
 
-        print('CWD ', self.switch_path)
-        self.switch_connect.cwd(self.switch_path)
-        print('CWD ', "OK!")
         
         new_dir_name = "Save2Switch Copy - " + self.today
 
@@ -84,10 +85,12 @@ class connectFTP():
         self.switch_connect.quit()
 
     def save2pc(self, game_name):
-        game = self.main.data["saves"][game_name]
-        src = f"{game['switch_path']}\\{game['switch_foulder']}"
-        dst = game["pc_path"]
-        backhup_foulder = f"{os.getcwd()}\\backups\\{game['name']} backup - {self.today}"
+        self.connect(game_name)
+        src = os.path.join(self.switch_path, self.game["switch_foulder"])
+        dst = self.game["pc_path"]
+
+        # PC SAVE BACKUP <---------------------------------------------------------------------
+        backhup_foulder = f"{os.getcwd()}\\backups\\{self.game['name']} backup - {self.today}"
         
         try:
             os.mkdir(backhup_foulder)
@@ -96,7 +99,19 @@ class connectFTP():
 
         for file in os.listdir(dst):
             shutil.copy(f"{dst}\\{file}", backhup_foulder)
+        # >------------------------------------------------------------------------> END BACKUP
 
-        save_files = self.switch_connect.nlst()
+        self.switch_connect.cwd(src)
 
+        src_list = [os.path.basename(file) for file in self.switch_connect.nlst()]
+        dst_list = os.listdir(dst)
 
+        print(self.switch_connect.nlst())
+
+        for file in src_list:
+            dst_file = os.path.join(dst, file)
+            if file in dst_list:
+                os.remove(dst_file)
+
+            print("DOWNLOAD", dst_file)
+            self.switch_connect.retrbinary("RETR " + file, open(dst_file, 'wb').write)
