@@ -41,27 +41,9 @@ class connectFTP():
                                                       text_color="Black")
                 raise
 
-    def save2switch(self, game_name):
-        self.connect(game_name)
-        src = self.pc_path
-
-        
-        new_dir_name = "Save2Switch Copy - " + self.today
-
-        try:
-            print('MKD ', new_dir_name)
-            self.switch_connect.mkd(new_dir_name)
-            print('MKD ', "OK!")
-        except ftplib.error_perm:
-            print('MKD ', "OK!")
-            pass
-
-        print('CWD ', new_dir_name)
-        self.switch_connect.cwd(new_dir_name)
-
+    def upload_tree(self, src):
         for file in os.listdir(src):
             localpath = f"{src}/{file}"
-            print(self.switch_connect.nlst())
             if os.path.isfile(localpath):
                 print("STOR", localpath, file)
                 self.switch_connect.storbinary('STOR ' + file, open(localpath,'rb'))
@@ -77,11 +59,32 @@ class connectFTP():
                 print("CWD", file)
                 self.switch_connect.cwd(file)
 
-                self.copy_tree(localpath)
+                self.upload_tree(localpath)
                 
                 print("CWD", "..")
                 self.switch_connect.cwd("..")
-                
+
+    def save2switch(self, game_name):
+        self.connect(game_name)
+
+        print('CWD ', self.switch_path)
+        self.switch_connect.cwd(self.switch_path)
+        print('CWD ', "OK!")
+        
+        new_dir_name = "Save2Switch Copy - " + self.today
+
+        try:
+            print('MKD ', new_dir_name)
+            self.switch_connect.mkd(new_dir_name)
+            print('MKD ', "OK!")
+        except ftplib.error_perm:
+            print('MKD ', "OK!")
+            pass
+
+        print('CWD ', new_dir_name)
+        self.switch_connect.cwd(new_dir_name)
+
+        self.upload_tree(self.pc_path)
         self.switch_connect.quit()
 
     def save2pc(self, game_name):
@@ -97,8 +100,12 @@ class connectFTP():
         except FileExistsError:
             pass
 
-        for file in os.listdir(dst):
-            shutil.copy(f"{dst}\\{file}", backhup_foulder)
+        try:
+            print("Backing up pc save foulder...")
+            shutil.copytree(dst, backhup_foulder)
+        except FileExistsError:
+            print("Save foulder with backup already")
+            pass
         # >------------------------------------------------------------------------> END BACKUP
 
         self.switch_connect.cwd(src)
@@ -113,5 +120,7 @@ class connectFTP():
             if file in dst_list:
                 os.remove(dst_file)
 
-            print("DOWNLOAD", dst_file)
+            print("RETR ", dst_file)
             self.switch_connect.retrbinary("RETR " + file, open(dst_file, 'wb').write)
+
+

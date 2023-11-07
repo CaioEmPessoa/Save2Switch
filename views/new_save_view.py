@@ -19,6 +19,13 @@ class newSaveConfig(ctk.CTkScrollableFrame):
         self.switch_path_entry = ctk.CTkEntry(master=self, width=200)
         self.switch_path_entry.grid(row=4, column=0, pady=10, padx=10, sticky="W")
 
+        self.switch_foulder_label = ctk.CTkLabel(master=self, font=('',16), justify="left",
+                                                  text="The foulder you'll extract the save from the switch:")
+        self.switch_foulder_label.grid(row=5, column=0, sticky="W", columnspan=3)
+
+        self.switch_foulder_entry = ctk.CTkEntry(master=self, width=200)
+        self.switch_foulder_entry.grid(row=6, column=0, pady=10, padx=10, sticky="W")
+
         self.pc_path_label = ctk.CTkLabel(master=self, font=('',16), text="The path to the PC save:")
         self.pc_path_label.grid(row=7, column=0, padx=10, columnspan=2, sticky="W")
 

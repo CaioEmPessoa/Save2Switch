@@ -12,10 +12,11 @@ class NewSave():
     def send(self):
         self.name = self.new_view.configs_frame.name_entry.get()
         self.switch_path = self.new_view.configs_frame.switch_path_entry.get()
+        self.switch_foulder = self.new_view.configs_frame.switch_foulder_entry.get()
         self.pc_path = self.new_view.configs_frame.pc_path_entry.get()
         self.icon_path = self.new_view.configs_frame.image_path_entry.get()
 
-        if self.pc_path == "" or self.name == "" or self.switch_path == "":
+        if self.pc_path == "" or self.name == "" or self.switch_path == "" or self.switch_foulder=="":
             self.new_view.configs_frame.warning.configure(fg_color="#b60000", text="FILL IN ALL THE * ENTRIES")
             return
         
@@ -31,6 +32,7 @@ class NewSave():
                 self.name: {
                     "name": f"{self.name}",
                     "switch_path": f"{self.switch_path}",
+                    "switch_foulder": f"{self.switch_foulder}",
                     "pc_path": f"{self.pc_path}",
                     "icon_path": f"{self.icon_path}"
                 }
