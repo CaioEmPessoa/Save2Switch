@@ -35,7 +35,7 @@ class NewSaveView(ctk.CTkToplevel):
         self.ftp_app_label.grid(row=4, column=0)
 
         self.save_app_select = ctk.CTkOptionMenu(master=self, values=["JKSV", "Edizon"], width=200, font=('',16),
-                                        fg_color="White", text_color="Black", button_color=("#969da3", "#565a5f"))
+                                        fg_color=("White", "#343638"), text_color=("Black", "White"), button_color=("#969da3", "#565a5f"))
         self.save_app_select.grid(row=5, column=0)
         
         self.ftp_username_label = ctk.CTkLabel(master=self, text="\nOptional: FTP username:", font=('',16))
