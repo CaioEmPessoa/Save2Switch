@@ -1,22 +1,23 @@
 {
     "theme": "Light",
+    "switch_ip": "192.168.15.44",
+    "switch_port": "5000",
+    "save_app": "JKSV",
+    "username": "anonymous",
+    "password": "",
     "saves": {
-        "Game 1": {
-            "name": "Game 1",
-            "pc_path": "D:/\u00c1rea de Trabalho do hd/estudos/.projetos/Save2Switch/test/pc-save/pc_save.txt",
-            "switch_path": "D:/\u00c1rea de Trabalho do hd/estudos/.projetos/Save2Switch/test/pc-save/pc_save.txt",
-            "icon_path": ""
+        "Va-ll Hall-A": {
+            "name": "Va-ll Hall-A",
+            "switch_path": "VA-11 HALL-A",
+            "switch_foulder": "save2pc",
+            "pc_path": "C:/Users/Caio/AppData/Local/VA_11_Hall_A/saves",
+            "icon_path": "C:/Users/Caio/Desktop/2f0d38554a4facd1505fcc8fed23a2a8.jpg"
         },
-        "Game With Icon": {
-            "name": "Game With Icon",
-            "pc_path": "D:/\u00c1rea de Trabalho do hd/estudos/.projetos/Save2Switch/test/pc-save/pc_save.txt",
-            "switch_path": "D:/\u00c1rea de Trabalho do hd/estudos/.projetos/Save2Switch/test/pc-save/pc_save.txt",
-            "icon_path": "D:/\u00c1rea de Trabalho do hd/estudos/.projetos/Save2Switch/tests/disco.jpg"
-        },
-        "Game 2": {
-            "name": "Game 2",
-            "pc_path": "D:/\u00c1rea de Trabalho do hd/estudos/.projetos/Save2Switch/test/pc-save/pc_save.txt",
-            "switch_path": "D:/\u00c1rea de Trabalho do hd/estudos/.projetos/Save2Switch/test/pc-save/pc_save.txt",
+        "Save with Foulders": {
+            "name": "Save with Foulders",
+            "switch_path": "save2switch",
+            "switch_foulder": "save2pc",
+            "pc_path": "D:/\u00c1rea de Trabalho do hd/estudos/.projetos/Save2Switch/tests/pc-save",
             "icon_path": ""
         }
     }
