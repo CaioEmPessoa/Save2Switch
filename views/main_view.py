@@ -38,9 +38,14 @@ class GamesFrame(ctk.CTkScrollableFrame):
             question_where_label.grid(row=pos+2, column=1)
 
             if icon_path != "":
-                my_image = ctk.CTkImage(light_image=Image.open(icon_path), size=(130, 130))
-                img_label = ctk.CTkLabel(master=my_frame, image=my_image, text="", corner_radius=100)
-                img_label.grid(row=pos+3, column=1, pady=20)
+                try:
+                    my_image = ctk.CTkImage(light_image=Image.open(icon_path), size=(130, 130))
+                    img_label = ctk.CTkLabel(master=my_frame, image=my_image, text="", corner_radius=100)
+                    img_label.grid(row=pos+3, column=1, pady=20)
+                except IOError:
+                    img_label = ctk.CTkLabel(master=my_frame, text="Error Loading Image", corner_radius=100)
+                    img_label.grid(row=pos+3, column=1, pady=20)
+                    pass
 
             switch_button = ctk.CTkButton(master=my_frame, text="switch", width=120, height=50,
                                           command=lambda game=game_name: main.connect_switch.save2switch(game),
@@ -77,7 +82,7 @@ class Root(ctk.CTk):
 
         #  >-------------------------------------> END
         
-        self.welcome = ctk.CTkLabel(master=self, text="Choose or add a new save game", 
+        self.welcome = ctk.CTkLabel(master=self, text="Choose or add a new game save\n The window might freeze if can't connect", 
                                font=('Segoe UI', 20), text_color="#807e7e", width=500, pady=15)
         self.welcome.grid(row=0, column=0, columnspan=4)
 
@@ -111,26 +116,9 @@ class Root(ctk.CTk):
         if main.data["switch_ip"] == "0.0.0.0":
             add_button.configure(fg_color="red", state="disabled")
             self.welcome.configure(text="Please configure your switch IP.")
-            #self.tutorial(main)
+            messagebox.showinfo(title="Tutorial", message="Hey, if its your first time here I would recommend to see the tutorial of the app on my GitHub page!")
 
         try:
             self.games_frame.create_save_frames(main)
         except:
             print("no saves")
-
-    def tutorial(self, main):
-        #tutorials like this don't work??
-        tour = messagebox.askyesno(title="Tutorial", message="It seems this is your first time here, do you want a tutorial?")
-        if tour:
-            messagebox.showinfo(title="+ Button", message="The '+' button is where you add new game saves, it is red now because you first need to configure some things.")
-            messagebox.showinfo(title="Edit Button", message="The 'edit' button lets you edit or delete your already made saves, if you changed your save foulder, or want to change the icon of the game, you can make this changes here.")
-            messagebox.showinfo(title="Theme Button", message="The 'theme' button lets you change the theme of the app from light to dark and the other way around.")
-            messagebox.showinfo(title="Config Button", message="The config button should be the first button to press, here is where you config your switch ip, port, username and such... We will open the tab of it now.")
-            main.call_window("config")
-            messagebox.showinfo(title="Configurating...", message="First you can open a server on your switch, there you can check your IP and Port.")
-            messagebox.showinfo(title="Configurating...", message="Then you can put a custom username and password to connect to your switch, but I DO NOT RECOMMEND doing that, it is probably the default one, so change only IF YOU KNOW WHAT YOU ARE DOING.")
-            main.call_window("restart")
-            messagebox.showinfo(title="End", message="Ok, I think that's it for the tutorial! The part of adding a app and actually copying saves is much simpler and you can do it by intuition, but if you have any trouble doing so. But if you have >any< trouble with the app, I recommend reporting it to my github, thanks!")
-            main.call_window("restart")
-        else:
-            return

@@ -1,4 +1,5 @@
 from tkinter import filedialog
+from PIL import Image
 import shutil
 import os
 
@@ -8,6 +9,17 @@ class NewSave():
 
         self.new_view = new_save_view.NewSaveView(self)
         self.new_view.grab_set()
+
+    def copy_img(self, path):
+        if path != "":
+            try:
+                Image.open(path)
+                shutil.copy(path, "img")
+                new_path = f"{os.getcwd()}/img/{os.path.basename(path)}"
+                return new_path
+
+            except:
+                return ""
 
     def send(self):
         self.name = self.new_view.configs_frame.name_entry.get()
@@ -19,13 +31,6 @@ class NewSave():
         if self.pc_path == "" or self.name == "" or self.switch_path == "" or self.switch_foulder=="":
             self.new_view.configs_frame.warning.configure(fg_color="#b60000", text="FILL IN ALL THE * ENTRIES")
             return
-        
-        if os.path.isfile(self.icon_path):
-            working_path = os.getcwd()
-            icon_name = os.path.basename(self.icon_path)
-            
-            shutil.copy(self.icon_path, f"{working_path}/img/{icon_name}")
-            self.icon_path = f"{working_path}/img/{icon_name}"
 
         current_save_dic = {
             "saves":{
@@ -34,7 +39,7 @@ class NewSave():
                     "switch_path": f"{self.switch_path}",
                     "switch_foulder": f"{self.switch_foulder}",
                     "pc_path": f"{self.pc_path}",
-                    "icon_path": f"{self.icon_path}"
+                    "icon_path": f"{self.copy_img(self.icon_path)}"
                 }
             }
         }
