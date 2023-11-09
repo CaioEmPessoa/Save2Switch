@@ -1,4 +1,5 @@
 from tkinter import filedialog
+import customtkinter as ctk
 from PIL import Image
 import shutil
 import os
@@ -10,8 +11,24 @@ class NewSave():
         self.new_view = new_save_view.NewSaveView(self)
         self.new_view.grab_set()
 
+    def create_edit_window(self, main, new_save_view):
+        self.editing = True
+        self.create_newsave_window(main, new_save_view)
+        self.new_view.edit_itens(self, main)
+
+    def insert_save(self, game):
+        game_info = self.main.data["saves"][game]
+        self.new_view.switch_path_entry.delete(0, "end")
+        self.new_view.switch_path_entry.insert(0, game_info["switch_path"])
+        self.new_view.switch_foulder_entry.delete(0, "end")
+        self.new_view.switch_foulder_entry.insert(0, game_info["switch_foulder"])
+        self.new_view.pc_path_entry.delete(0, "end")
+        self.new_view.pc_path_entry.insert(0, game_info["pc_path"])
+        self.new_view.image_path_entry.delete(0, "end")
+        self.new_view.image_path_entry.insert(0, game_info["icon_path"])
+
     def copy_img(self, path):
-        if path != "":
+        if path != "" or path != "None":
             try:
                 Image.open(path)
                 shutil.copy(path, "img")
@@ -22,16 +39,22 @@ class NewSave():
                 return ""
 
     def send(self):
-        self.name = self.new_view.configs_frame.name_entry.get()
-        self.switch_path = self.new_view.configs_frame.switch_path_entry.get()
-        self.switch_foulder = self.new_view.configs_frame.switch_foulder_entry.get()
-        self.pc_path = self.new_view.configs_frame.pc_path_entry.get()
-        self.icon_path = self.new_view.configs_frame.image_path_entry.get()
+        self.name = self.new_view.name_entry.get()
+        self.switch_path = self.new_view.switch_path_entry.get()
+        self.switch_foulder = self.new_view.switch_foulder_entry.get()
+        self.pc_path = self.new_view.pc_path_entry.get()
+        self.icon_path = self.new_view.image_path_entry.get()
 
         if self.pc_path == "" or self.name == "" or self.switch_path == "" or self.switch_foulder=="":
-            self.new_view.configs_frame.warning.configure(fg_color="#b60000", text="FILL IN ALL THE * ENTRIES")
+            self.new_view.warning.configure(fg_color="#b60000", text_color="white", text="FILL IN ALL THE * ENTRIES")
             return
 
+        saves_list = [name for name in self.main.data["saves"]]
+        
+        if self.name in saves_list and not self.editing:
+            self.new_view.warning.configure(fg_color="#b60000", text_color="white", text="Please choose a different name.\nTo edit an app, go to the edit window.")
+            return
+        
         current_save_dic = {
             "saves":{
                 self.name: {

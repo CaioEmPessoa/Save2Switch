@@ -21,6 +21,7 @@ class Main():
         
         self.connect_switch = ftp_connect.connectFTP(self)
 
+        self.add_save = new_save.NewSave()
         self.main_view = main_view.Root()
         self.main_view.CreateWindow(self)
         self.main_view.mainloop()
@@ -46,10 +47,12 @@ class Main():
 
             case "close":
                 self.main_view.destroy()
-            
+             
             case "new_save":
-                self.add_save = new_save.NewSave()
                 self.add_save.create_newsave_window(self, new_save_view)
+
+            case "edit":
+                self.add_save.create_edit_window(self, new_save_view)
 
             case "config":
                 self.configs = config.Config()

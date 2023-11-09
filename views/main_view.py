@@ -98,8 +98,8 @@ class Root(ctk.CTk):
         add_button.grid(row=99, column=0, 
                         padx=10, pady=10, sticky="E",)
 
-        edit_button = ctk.CTkButton(master=self, text="Edit", width=70, state="disabled",
-                                    command=lambda: main.call_window("restart"))
+        edit_button = ctk.CTkButton(master=self, text="Edit", width=70,
+                                    command=lambda: main.call_window("edit"))
         edit_button.grid(row=99, column=1, pady=10)
 
         theme_buttom = ctk.CTkButton(master=self, text="Theme", width=70, command=main.switch_theme)
