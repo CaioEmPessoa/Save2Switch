@@ -1,6 +1,6 @@
 from tkinter import filedialog
 import customtkinter as ctk
-from PIL import Image
+from PIL import Image, UnidentifiedImageError
 import shutil
 import os
 
@@ -38,12 +38,18 @@ class NewSave():
         if path != "" or path != "None":
             try:
                 Image.open(path)
-                shutil.copy(path, "img")
                 new_path = f"{os.getcwd()}/img/{os.path.basename(path)}"
+                shutil.copy(path, "img")
                 return new_path
 
-            except:
-                return ""
+            except UnidentifiedImageError:
+                self.new_view.warning.configure(fg_color="#b60000", text_color="white", text="INVALID IMAGE")
+                raise
+            
+            except shutil.SameFileError:
+                return f"{os.getcwd()}/img/{os.path.basename(path)}"
+
+
 
     def send(self):
         self.name = self.new_view.name_entry.get()
@@ -62,6 +68,8 @@ class NewSave():
             self.new_view.warning.configure(fg_color="#b60000", text_color="white", text="Please choose a different name.\nTo edit an app, go to the edit window.")
             return
         
+        self.icon_path = self.copy_img(self.icon_path)
+
         current_save_dic = {
             "saves":{
                 self.name: {
@@ -69,7 +77,7 @@ class NewSave():
                     "switch_path": f"{self.switch_path}",
                     "switch_foulder": f"{self.switch_foulder}",
                     "pc_path": f"{self.pc_path}",
-                    "icon_path": f"{self.copy_img(self.icon_path)}"
+                    "icon_path": f"{self.icon_path}"
                 }
             }
         }

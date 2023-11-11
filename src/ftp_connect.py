@@ -112,6 +112,7 @@ class connectFTP():
             self.switch_connect.mkd(new_dir_name)
             print('MKD ', "OK!")
         except ftplib.error_perm:
+            print('MKD ', "ERR")
             self.today_precise = datetime.datetime.now().strftime("%d.%m.%Y - %H;%M;%S")
             new_dir_name = "Save2Switch Copy - " + self.today_precise
             print('MKD ', new_dir_name)
