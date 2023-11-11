@@ -2,8 +2,8 @@ from views import main_view
 from src.modify_data import ModifyData
 
 from src import ftp_connect
-from src import new_save
-from views import new_save_view
+from src import edit_save
+from views import edit_save_view
 from src import config
 from views import config_view
 
@@ -21,7 +21,8 @@ class Main():
         
         self.connect_switch = ftp_connect.connectFTP(self)
 
-        self.add_save = new_save.NewSave()
+        self.new_save = edit_save.NewSave()
+
         self.main_view = main_view.Root()
         self.main_view.CreateWindow(self)
         self.main_view.mainloop()
@@ -49,10 +50,10 @@ class Main():
                 self.main_view.destroy()
              
             case "new_save":
-                self.add_save.create_newsave_window(self, new_save_view)
+                self.new_save.create_newsave_window(self, edit_save_view)
 
             case "edit":
-                self.add_save.create_edit_window(self, new_save_view)
+                self.new_save.create_edit_window(self, edit_save_view)
 
             case "config":
                 self.configs = config.Config()

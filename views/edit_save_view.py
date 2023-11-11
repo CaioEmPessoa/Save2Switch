@@ -26,21 +26,21 @@ class NewSaveView(ctk.CTkToplevel):
         self.name_label = ctk.CTkLabel(master=self, justify="left", font=('',16), text="The game name to display:")
         self.name_label.grid(row=1, column=0, padx=10, columnspan=3)
 
-        self.name_entry = ctk.CTkEntry(master=self, width=200, font=('',16))
+        self.name_entry = ctk.CTkEntry(master=self, width=220, font=('',16))
         self.name_entry.grid(row=2, column=0, pady=10, padx=10, columnspan=3)
 
         self.switch_path_label = ctk.CTkLabel(master=self, font=('',16), justify="left",
                                               text="The name of the game for JKSV,\nor title ID for EdiZon:")
         self.switch_path_label.grid(row=3, column=0, padx=10, columnspan=3)
 
-        self.switch_path_entry = ctk.CTkEntry(master=self, width=200, font=('',16))
+        self.switch_path_entry = ctk.CTkEntry(master=self, width=220, font=('',16))
         self.switch_path_entry.grid(row=4, column=0, pady=10, padx=10, columnspan=3)
 
         self.switch_foulder_label = ctk.CTkLabel(master=self, font=('',16), justify="left",
                                                   text="The foulder you'll extract the save:")
         self.switch_foulder_label.grid(row=5, column=0, padx=10, columnspan=3)
 
-        self.switch_foulder_entry = ctk.CTkEntry(master=self, width=200, font=('',16))
+        self.switch_foulder_entry = ctk.CTkEntry(master=self, width=220, font=('',16))
         self.switch_foulder_entry.grid(row=6, column=0, pady=10, padx=10, columnspan=3)
 
         self.pc_path_label = ctk.CTkLabel(master=self, font=('',16), text="The path to the PC save:")
@@ -73,7 +73,7 @@ class NewSaveView(ctk.CTkToplevel):
         self.title("Save2Switch Editing save...")
         self.saves_list = [save for save in main.data["saves"]]
         self.name_entry.destroy()
-        self.name_entry = ctk.CTkOptionMenu(master=self, values=self.saves_list, width=200, font=('',16), command=new_save.insert_save,
+        self.name_entry = ctk.CTkOptionMenu(master=self, values=self.saves_list, width=220, font=('',16), command=new_save.insert_save,
                                 fg_color=("White", "#343638"), text_color=("Black", "White"), button_color=("#969da3", "#565a5f"))
         self.name_entry.grid(row=2, column=0, columnspan=3)
 
@@ -83,7 +83,8 @@ class NewSaveView(ctk.CTkToplevel):
         self.send_button.configure(width=100)
         self.send_button.grid(row=11, column=0, pady=15, columnspan=1)
         
-        self.delete_button = ctk.CTkButton(master=self, fg_color="red", text="delete", width=100)
+        self.delete_button = ctk.CTkButton(master=self, fg_color="red", text="delete", width=100,
+                                           command=new_save.delete_save)
         self.delete_button.grid(row=11, column=2, pady=15, columnspan=1)
 
         new_save.insert_save(self.saves_list[0])

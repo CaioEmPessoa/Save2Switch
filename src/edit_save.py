@@ -16,6 +16,13 @@ class NewSave():
         self.create_newsave_window(main, new_save_view)
         self.new_view.edit_itens(self, main)
 
+    def delete_save(self):
+        self.name = self.new_view.name_entry.get()
+        tmp_data = self.main.data
+        del tmp_data["saves"][self.name]
+        self.main.modify_data.write_data(tmp_data)
+        self.main.call_window("restart")
+
     def insert_save(self, game):
         game_info = self.main.data["saves"][game]
         self.new_view.switch_path_entry.delete(0, "end")
