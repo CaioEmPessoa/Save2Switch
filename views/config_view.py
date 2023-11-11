@@ -31,10 +31,10 @@ class NewSaveView(ctk.CTkToplevel):
         self.switch_port_entry = ctk.CTkEntry(master=self, width=200, font=('',16))
         self.switch_port_entry.grid(row=3, column=0)
 
-        self.ftp_app_label = ctk.CTkLabel(master=self, text="\nWhat save app do you use on Switch?", font=('',16))
+        self.ftp_app_label = ctk.CTkLabel(master=self, text="\nWhat save app do you use on Switch? (add in future)", font=('',16))
         self.ftp_app_label.grid(row=4, column=0)
 
-        self.save_app_select = ctk.CTkOptionMenu(master=self, values=["JKSV", "Edizon"], width=200, font=('',16),
+        self.save_app_select = ctk.CTkOptionMenu(master=self, values=["JKSV", "Edizon"], width=200, font=('',16), state="disabled",
                                         fg_color=("White", "#343638"), text_color=("Black", "White"), button_color=("#969da3", "#565a5f"))
         self.save_app_select.grid(row=5, column=0)
         
