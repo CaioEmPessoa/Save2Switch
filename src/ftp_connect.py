@@ -33,19 +33,31 @@ class connectFTP():
 
                 print(self.switch_connect.getwelcome())
                 
+            except:
+                self.main.main_view.welcome.configure(text="Error connecting to FTP server.\nCheck your FTP info and if the server is opened.", 
+                                                      text_color="Red")
+                raise
+
+            try:
                 print('CWD ', self.switch_path)
                 self.switch_connect.cwd(self.switch_path)
                 print('CWD ', "OK!")
-
-            except:
-                self.main.main_view.welcome.configure(text="Error connecting to FTP server.\nCheck your FTP info and if the server is opened.", 
-                                                      text_color="Black")
+            except ftplib.error_perm:
+                last_name = self.switch_path.split("/")
+                last_name = last_name[len(last_name)-2]
+                self.main.main_view.welcome.configure(text=f"Could not find '{last_name}' foulder.\nCheck if you typed the name or id of the game correctly.", 
+                                            text_color="Red")
                 raise
 
-    def download_tree(self, src, dst):       
-        print("CWD ", src)
-        self.switch_connect.cwd(src)
-
+    def download_tree(self, src, dst):
+        try:
+            print("CWD ", src)
+            self.switch_connect.cwd(src)
+            print('CWD ', "OK!")
+        except ftplib.error_perm:
+            self.main.main_view.welcome.configure(text=f"Could not find '{src}' foulder.\nCheck if you created a backup of your game with this name.", 
+                                        text_color="Red")
+            raise
         src_list = [os.path.basename(file) for file in self.switch_connect.nlst()]
         dst_list = os.listdir(dst)
         # try, if path not exist, create the src foulder|^|
@@ -99,6 +111,8 @@ class connectFTP():
                 self.switch_connect.cwd("..")
 
     def save2switch(self, game_name):
+        self.main.main_view.welcome.configure(text=f"Copying files...", text_color="Black")
+        self.main.main_view.update()
         self.connect(game_name)
 
         print('CWD ', self.switch_path)
@@ -125,8 +139,12 @@ class connectFTP():
 
         self.upload_tree(self.pc_path)
         self.switch_connect.quit()
+        self.main.main_view.welcome.configure(text=f"Copyed {self.game['name']} files from PC to Switch suceffully!", 
+                                    text_color="Green")
 
     def save2pc(self, game_name):
+        self.main.main_view.welcome.configure(text=f"Copying files...", text_color="Black")
+        self.main.main_view.update()
         self.connect(game_name)
         src = self.game["switch_foulder"]
         dst = self.game["pc_path"]
@@ -149,5 +167,8 @@ class connectFTP():
                 shutil.copytree(file_path, f"{backhup_foulder}\\{file}")
 
         # >------------------------------------------------------------------------> END BACKUP
-
         self.download_tree(src, dst)
+        self.switch_connect.quit()
+
+        self.main.main_view.welcome.configure(text=f"Copyed {self.game['name']} files from Switch to PC suceffully!\n", 
+                                    text_color="Green")
