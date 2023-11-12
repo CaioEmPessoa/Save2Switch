@@ -51,5 +51,5 @@ And finally you can just click in "switch" or "pc" when you want to copy your fi
 - If you copied to PC you can just go and play your game!
 
 **And don't worry about losing saves, before copying the save files to PC, the app copies your save foulder to a "backups" one on the root of the app.**
-**And JKSV automatically does a backup before applying your saves on switch**
+**And JKSV automatically does a backup before applying your saves on switch.**
 
