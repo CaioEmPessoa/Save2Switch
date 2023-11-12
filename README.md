@@ -49,8 +49,17 @@ Then it will display your games like this:
 And finally you can just click in "switch" or "pc" when you want to copy your files from one system to another!
 - If you copied to switch you can just apply your save on JKSV
 - If you copied to PC you can just go and play your game!
+### Backups
+The app has a "backups" foulder, that keeps all your files when coping files to PC, in case something goes wrong. I didn't made backups for switch coping cause JKSV already does it automatically when applying your save, but its always good to keep a backup yourself.
 
-**And don't worry about losing saves, before copying the save files to PC, the app copies your save foulder to a "backups" one on the root of the app.**
-**And JKSV automatically does a backup before applying your saves on switch.
-<br>But if you want to be sure its always good to keep a backup yourself.**
+### Compatible Games
+To know if a game its compatible, check both of its save files, on switch and pc. If they have mostly the same files they PROBABLY will be compatible, but there are some games that have files that look the same and still don't work.
+As I sayied earlier I'll probably try to work on specific games, but for know this are the games I tested and know that work/don't work:
+*I haven't tested because can't run a emulator, but all of their save files must be compatible.
 
+| Game Name | Compatibility |
+|--------------|---|
+| Loop Hero    |✔|
+| VA-11 Hall-A |✔|
+|Disco Elysium | ❌|
+|Inscryption |❌|
