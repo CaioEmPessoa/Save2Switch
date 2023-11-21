@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from os import getcwd
 
 class NewSaveView(ctk.CTkToplevel):
     def __init__(self, new_save):
@@ -18,6 +19,8 @@ class NewSaveView(ctk.CTkToplevel):
         self.grid_columnconfigure(0, weight=2)
         self.grid_rowconfigure((list(range(7))), weight=2)
         self.title("Save2Switch Config")
+        self.after(200, lambda: self.wm_iconbitmap(f'{getcwd()}/img/Save2Switch.ico'))
+        # can only do the above to make icons on toplevels work
 
         self.switch_ip_label = ctk.CTkLabel(master=self, text="What is your switch's ip? (it may change)", font=('',16))
         self.switch_ip_label.grid(row=0, column=0)

@@ -1,4 +1,6 @@
 import customtkinter as ctk
+from os import getcwd
+
 class NewSaveView(ctk.CTkToplevel):
     def __init__(self, new_save):
         super().__init__()
@@ -19,6 +21,8 @@ class NewSaveView(ctk.CTkToplevel):
         self.grid_columnconfigure([0, 1, 2], weight=1)
 
         self.title("Save2Switch new save.")
+        self.after(200, lambda: self.wm_iconbitmap(f'{getcwd()}/img/Save2Switch.ico'))
+        # can only do the above to make icons on toplevels work
 
         self.create_itens(new_save)
 

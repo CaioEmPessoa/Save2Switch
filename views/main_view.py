@@ -1,5 +1,6 @@
 import customtkinter as ctk 
 from tkinter import messagebox
+from os import getcwd
 from PIL import Image
 
 class Frame(ctk.CTkFrame):
@@ -68,6 +69,7 @@ class Root(ctk.CTk):
 
         # WINDOW CONFIG <----------------------------<
         self.title('Save2Switch')
+        self.wm_iconbitmap(f'{getcwd()}/img/Save2Switch.ico')
         self.minsize(430, 300)
         self.grid_rowconfigure((1, 2), weight=1)
         self.grid_columnconfigure((0, 1, 2), weight=1)

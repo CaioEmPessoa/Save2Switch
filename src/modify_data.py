@@ -15,7 +15,8 @@ class ModifyData():
                             "switch_port": "5000",
                             "save_app": "JKSV",
                             "username": "anonymous",
-                            "password": ""}
+                            "password": "",
+                            "saves": {}}
             self.write_data(default_data)
             self.data = default_data
 
@@ -41,6 +42,8 @@ class ModifyData():
         img_path = os.path.join(os.getcwd(), "img")
         saved_img = [os.path.basename(self.data["saves"][img]["icon_path"]) for img in self.data["saves"]]
         cache_img = os.listdir(img_path)
+
+        app_imgs = ["config_light.png", "config_dark.png", "Save2Switch.ico"]
         for img in cache_img:
-            if img not in saved_img and img != "config_light.png" and img != "config_dark.png":
+            if img not in saved_img and img not in app_imgs:
                 os.remove(os.path.join(img_path, img))
